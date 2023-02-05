@@ -52,7 +52,7 @@ btnRoll.addEventListener("click", function () {
     activePlayer = activePlayer === 0 ? 1 : 0;
     currentScore = 0;
 
-    // Using the toggle method to see if the class is active, and if it's not, change it to active. The .toggle method removes the class if it is present and adds it if it is not present.
+    // Using the toggle method to see if the class is active, and if it's not, change it to active. The .toggle method removes the class if it is present and adds it if it is not present. This changes the color white from player 0 to player 1.
     player0Element.classList.toggle("player--active");
     player1Element.classList.toggle("player--active");
   }
