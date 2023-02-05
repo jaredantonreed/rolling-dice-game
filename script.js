@@ -1,6 +1,8 @@
 "use strict";
 
 // Selecting elements
+const player0Element = document.querySelector(".player--0");
+const player1Element = document.querySelector(".player--1");
 const score0Element = document.querySelector("#score--0");
 const score1Element = document.querySelector("#score--1");
 const current0Element = document.querySelector("#current--0");
@@ -16,8 +18,13 @@ score1Element.textContent = 0;
 // Hiding the dice in the middle of the screen initially
 diceElement.classList.add("hidden");
 
+const scores = [0, 0];
+
 // Setting the current score
 let currentScore = 0;
+
+// Figuring out who the active player is
+let activePlayer = 0;
 
 // Rolling dice functionality
 btnRoll.addEventListener("click", function () {
@@ -33,8 +40,20 @@ btnRoll.addEventListener("click", function () {
   if (dice !== 1) {
     // Add dice to the current score
     currentScore = currentScore + dice;
+
+    // We are selecting the current player dynamically through the variable "activePlayer used by a let because it will change. Then we are settting the textContent in the HTML document to equal the variable currentScore"
+    document.querySelector(`#current--${activePlayer}`).textContent =
+      currentScore;
     current0Element.textContent = currentScore; // Change later
   } else {
-    // switch to next player
+    // Switching the score back to 0
+    document.querySelector(`#current--${activePlayer}`).textContent = 0;
+    // Switch to next player using a terniary operator. This says that when activePlayer is equal to 0, it should switch to 1, else it should be equal to 0
+    activePlayer = activePlayer === 0 ? 1 : 0;
+    currentScore = 0;
+
+    // Using the toggle method to see if the class is active, and if it's not, change it to active. The .toggle method removes the class if it is present and adds it if it is not present.
+    player0Element.classList.toggle("player--active");
+    player1Element.classList.toggle("player--active");
   }
 });
