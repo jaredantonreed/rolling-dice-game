@@ -12,22 +12,33 @@ const btnNew = document.querySelector(".btn--new");
 const btnRoll = document.querySelector(".btn--roll");
 const btnHold = document.querySelector(".btn--hold");
 
-score0Element.textContent = 0;
-score1Element.textContent = 0;
+// These variables are defined here, but in the function init, they are reassigned.
+let scores, currentScore, activePlayer, playing;
 
-// Hiding the dice in the middle of the screen initially
-diceElement.classList.add("hidden");
+const init = function () {
+  scores = [0, 0];
 
-const scores = [0, 0];
+  // Reassigned setting the current score
+  currentScore = 0;
 
-// Setting the current score
-let currentScore = 0;
+  // Reassigned figuring out who the active player is
+  activePlayer = 0;
 
-// Figuring out who the active player is
-let activePlayer = 0;
-
-// Ending the game
-let playing = true;
+  // Reassigned ending the game
+  playing = true;
+  score0Element.textContent = 0;
+  score1Element.textContent = 0;
+  current0Element.textContent = 0;
+  current1Element.textContent = 0;
+  // Hiding the dice in the middle of the screen initially
+  diceElement.classList.add("hidden");
+  player0Element.classList.remove("player--winner");
+  player1Element.classList.remove("player--winner");
+  player0Element.classList.add("player--active");
+  player1Element.classList.remove("player--active");
+};
+// This line of code runs the function
+init();
 
 const switchPlayer = function () {
   // Switching the score back to 0
@@ -73,7 +84,7 @@ btnHold.addEventListener("click", function () {
     scores[activePlayer] += currentScore; // This is the same thing as writing "scores[1] = scores[1] + currentScore" or in this instance to be exact, "scores[activePlayer] = scores[activePlayer] + currentScore"
     document.querySelector(`#score--${activePlayer}`).textContent =
       scores[activePlayer];
-    // 2. Check if player's score is >= 100
+    // 2. Check if player's score is >= 20
     if (scores[activePlayer] >= 20) {
       // This ends the game
       playing = false;
@@ -90,3 +101,6 @@ btnHold.addEventListener("click", function () {
     }
   }
 });
+
+// Resetting everything and calling the init function
+btnNew.addEventListener("click", init);
